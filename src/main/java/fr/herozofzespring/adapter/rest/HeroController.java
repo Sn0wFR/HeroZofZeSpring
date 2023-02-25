@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,9 +22,13 @@ public class HeroController {
         this.heroService = heroService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Hero>> findAll(){
+        return new ResponseEntity<>(heroService.findAll(), HttpStatus.OK);
+    }
 
     @PostMapping
-    public ResponseEntity<Hero> create(@RequestBody Map<String, Object> body){
+    public ResponseEntity<Hero> save(@RequestBody Map<String, Object> body){
 
         System.out.println(body);
 

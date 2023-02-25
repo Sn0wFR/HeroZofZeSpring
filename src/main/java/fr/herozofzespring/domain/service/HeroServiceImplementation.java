@@ -17,6 +17,11 @@ public class HeroServiceImplementation implements HeroService {
 
 
     @Override
+    public List<Hero> findAll() {
+        return heroRepository.findAll();
+    }
+
+    @Override
     public Hero save(String name, Integer hp, Integer xp, Integer power, Integer armor, Integer level) {
         System.out.println("service !");
         System.out.println(name);

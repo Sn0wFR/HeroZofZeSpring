@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 public interface HeroRepository {
 
+    List<Hero> findAll();
 
     Hero save(Hero hero);
 }
