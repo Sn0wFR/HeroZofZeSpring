@@ -7,11 +7,5 @@ import java.util.Optional;
 
 public interface HeroService {
 
-    List<Hero> getHeros();
-
-    Optional<Hero> getHeroById(Integer heroId);
-
-    Hero addHero(Hero product);
-
-    void removeHero(Integer heroId);
+    Hero save(String name, Integer hp, Integer xp, Integer power, Integer armor, Integer level);
 }

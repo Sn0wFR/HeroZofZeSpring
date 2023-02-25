@@ -15,24 +15,11 @@ public class HeroServiceImplementation implements HeroService {
     @Autowired
     private HeroRepository heroRepository;
 
-    @Override
-    public List<Hero> getHeros() {
-        return (List<Hero>) heroRepository.findAll();
-    }
 
     @Override
-    public Optional<Hero> getHeroById(Integer heroId) {
-        return heroRepository.findById(heroId);
-    }
-
-    @Override
-    public Hero addHero(Hero hero) {
-        System.out.println(this.getClass().getName());
-        return heroRepository.save(hero);
-    }
-
-    @Override
-    public void removeHero(Integer heroId) {
-        heroRepository.deleteById(heroId);
+    public Hero save(String name, Integer hp, Integer xp, Integer power, Integer armor, Integer level) {
+        System.out.println("service !");
+        System.out.println(name);
+        return heroRepository.save(new Hero(name, hp, xp, power, armor, level));
     }
 }
