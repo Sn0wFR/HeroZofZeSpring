@@ -3,14 +3,15 @@ package fr.herozofzespring.port;
 import fr.herozofzespring.domain.model.Hero;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HeroService {
 
     List<Hero> getHeros();
 
-    Hero getHeroById(Integer heroId);
+    Optional<Hero> getHeroById(Integer heroId);
 
     Hero addHero(Hero product);
 
-    Hero removeHero(Integer heroId);
+    void removeHero(Integer heroId);
 }

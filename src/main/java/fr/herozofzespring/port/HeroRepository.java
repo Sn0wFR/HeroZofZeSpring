@@ -1,16 +1,16 @@
 package fr.herozofzespring.port;
 
 import fr.herozofzespring.domain.model.Hero;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface HeroRepository {
 
-    List<Hero> getHeros();
 
-    Hero getHeroById(Integer heroId);
 
-    Hero addHero(Hero hero);
+// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
+// CRUD refers Create, Read, Update, Delete
 
-    Hero removeHero(Integer heroId);
+public interface HeroRepository extends CrudRepository<Hero, Integer> {
+
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HeroServiceImplementation implements HeroService {
@@ -16,22 +17,22 @@ public class HeroServiceImplementation implements HeroService {
 
     @Override
     public List<Hero> getHeros() {
-        return heroRepository.getHeros();
+        return (List<Hero>) heroRepository.findAll();
     }
 
     @Override
-    public Hero getHeroById(Integer heroId) {
-        return heroRepository.getHeroById(heroId);
+    public Optional<Hero> getHeroById(Integer heroId) {
+        return heroRepository.findById(heroId);
     }
 
     @Override
     public Hero addHero(Hero hero) {
         System.out.println(this.getClass().getName());
-        return heroRepository.addHero(hero);
+        return heroRepository.save(hero);
     }
 
     @Override
-    public Hero removeHero(Integer heroId) {
-        return heroRepository.removeHero(heroId);
+    public void removeHero(Integer heroId) {
+        heroRepository.deleteById(heroId);
     }
 }
