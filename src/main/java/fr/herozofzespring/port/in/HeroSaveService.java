@@ -1,6 +1,6 @@
 package fr.herozofzespring.port.in;
 
-import fr.herozofzespring.adapter.Entity.HeroEntity;
+import fr.herozofzespring.adapter.entity.HeroEntity;
 
 public interface HeroSaveService {
 

@@ -1,16 +1,11 @@
-package fr.herozofzespring.adapter.Entity;
+package fr.herozofzespring.adapter.entity;
 
-import fr.herozofzespring.domain.enumerator.Rarity;
-import fr.herozofzespring.domain.enumerator.Speciality;
-import fr.herozofzespring.domain.model.Hero;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.UUID;
 
 @Getter
 @Setter

@@ -1,6 +1,6 @@
 package fr.herozofzespring.adapter.rest;
 
-import fr.herozofzespring.adapter.Entity.HeroEntity;
+import fr.herozofzespring.adapter.entity.HeroEntity;
 import fr.herozofzespring.port.in.HeroDeleteService;
 import fr.herozofzespring.port.in.HeroFindService;
 import fr.herozofzespring.port.in.HeroSaveService;

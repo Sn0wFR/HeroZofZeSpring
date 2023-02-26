@@ -1,6 +1,6 @@
 package fr.herozofzespring.port.out;
 
-import fr.herozofzespring.adapter.Entity.HeroEntity;
+import fr.herozofzespring.adapter.entity.HeroEntity;
 
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository

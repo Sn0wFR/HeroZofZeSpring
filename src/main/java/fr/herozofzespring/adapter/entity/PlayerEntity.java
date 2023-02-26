@@ -1,7 +1,5 @@
-package fr.herozofzespring.adapter.Entity;
+package fr.herozofzespring.adapter.entity;
 
-import fr.herozofzespring.domain.model.Deck;
-import fr.herozofzespring.domain.model.Hero;
 import fr.herozofzespring.domain.model.Player;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

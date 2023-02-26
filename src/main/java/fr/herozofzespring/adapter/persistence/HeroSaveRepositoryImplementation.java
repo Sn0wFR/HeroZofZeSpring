@@ -1,6 +1,6 @@
 package fr.herozofzespring.adapter.persistence;
 
-import fr.herozofzespring.adapter.Entity.HeroEntity;
+import fr.herozofzespring.adapter.entity.HeroEntity;
 import fr.herozofzespring.port.out.HeroSaveRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
