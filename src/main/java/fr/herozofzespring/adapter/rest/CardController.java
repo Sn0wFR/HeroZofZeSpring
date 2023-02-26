@@ -1,9 +1,9 @@
 package fr.herozofzespring.adapter.rest;
 
-import fr.herozofzespring.port.in.CardDeleteService;
-import fr.herozofzespring.port.in.CardFindService;
-import fr.herozofzespring.port.in.CardSaveService;
-import fr.herozofzespring.port.in.CardUpdateService;
+import fr.herozofzespring.port.in.card.CardDeleteService;
+import fr.herozofzespring.port.in.card.CardFindService;
+import fr.herozofzespring.port.in.card.CardSaveService;
+import fr.herozofzespring.port.in.card.CardUpdateService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,15 +28,19 @@ public class CardController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Map<String, Object> body){
         Integer heroId = (Integer) body.get("heroId");
+        Integer playerId = (Integer) body.get("playerId");
 
         if (heroId == null)
             return ResponseEntity.badRequest().body(Map.of("errorHeroId", "heroId is null !"));
 
+        if (playerId == null)
+            return ResponseEntity.badRequest().body(Map.of("errorPlayerId", "playerId is null !"));
+
         try{
 
-            return ResponseEntity.ok(cardSaveService.save(heroId));
+            return ResponseEntity.ok(cardSaveService.save(heroId, playerId));
         }catch (IllegalArgumentException e){
-            return ResponseEntity.badRequest().body(Map.of("errorHeroId", e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
@@ -69,11 +73,14 @@ public class CardController {
     public ResponseEntity<?> updateById(@PathVariable Integer id, @RequestBody Map<String, Object> body){
         Integer heroId = (Integer) body.get("heroId");
 
-        if (heroId == null)
-            return ResponseEntity.badRequest().body(Map.of("errorHeroId", "heroId is null !"));
+        Integer playerId = (Integer) body.get("playerId");
+
+        if (heroId == null && playerId == null)
+            return ResponseEntity.badRequest().body(Map.of("error", "heroId and playerId are null !"));
+
 
         try{
-            cardUpdateService.updateById(id, heroId);
+            cardUpdateService.updateById(id, heroId, playerId);
             return ResponseEntity.ok().build();
         }catch (IllegalArgumentException e){
             return ResponseEntity.notFound().build();

@@ -15,16 +15,20 @@ public class PlayerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer playerId;
-    private  int jeton;
+    private  Integer jeton;
     private String name;
 
-        public PlayerEntity(Player player) {
-            this.jeton = player.getJeton();
-            this.name = player.getName();
-        }
+    public PlayerEntity(String name) {
+        this.jeton = 0;
+        this.name = name;
+    }
 
-        public PlayerEntity(){
+    public PlayerEntity(){
+    }
 
-        }
-
+    public PlayerEntity(Integer id, String name, Integer jeton) {
+        this.playerId = id;
+        this.jeton = jeton;
+        this.name = name;
+    }
 }

@@ -1,11 +1,10 @@
 package fr.herozofzespring.adapter.rest;
 
 import fr.herozofzespring.adapter.entity.HeroEntity;
-import fr.herozofzespring.port.in.HeroDeleteService;
-import fr.herozofzespring.port.in.HeroFindService;
-import fr.herozofzespring.port.in.HeroSaveService;
-import fr.herozofzespring.port.in.HeroUpdateService;
-import org.springframework.http.HttpStatus;
+import fr.herozofzespring.port.in.hero.HeroDeleteService;
+import fr.herozofzespring.port.in.hero.HeroFindService;
+import fr.herozofzespring.port.in.hero.HeroSaveService;
+import fr.herozofzespring.port.in.hero.HeroUpdateService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

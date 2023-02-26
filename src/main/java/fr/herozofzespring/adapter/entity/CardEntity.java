@@ -17,14 +17,20 @@ public class CardEntity {
     @OneToOne
     @JoinColumn(name = "hero_id")
     private HeroEntity hero;
+
+    @JsonBackReference
+    @OneToOne
+    @JoinColumn(name = "player_id")
+    private PlayerEntity player;
     private Integer armor;
     private Integer xp;
     private Integer hp;
     private Integer power;
     private Integer level;
 
-    public CardEntity(HeroEntity hero, Integer armor, Integer xp, Integer hp, Integer power, Integer level) {
+    public CardEntity(HeroEntity hero, PlayerEntity player, Integer armor, Integer xp, Integer hp, Integer power, Integer level) {
         this.hero = hero;
+        this.player = player;
 
         for (int i = 0; i < level; i++) {
             armor = (int) (armor + (armor * 0.1));
@@ -39,11 +45,12 @@ public class CardEntity {
         this.level = level;
     }
 
-    public CardEntity(Integer id, HeroEntity hero, Integer armor, Integer xp, Integer hp, Integer power, Integer level) {
+    public CardEntity(Integer id, HeroEntity hero, PlayerEntity player, Integer armor, Integer xp, Integer hp, Integer power, Integer level) {
 
         this.id = id;
 
         this.hero = hero;
+        this.player = player;
 
         for (int i = 0; i < level; i++) {
             armor = (int) (armor + (armor * 0.1));
