@@ -1,13 +1,13 @@
 package fr.herozofzespring.adapter.rest;
 
-import fr.herozofzespring.domain.model.Hero;
-import fr.herozofzespring.port.HeroService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import fr.herozofzespring.adapter.HeroEntity;
+import fr.herozofzespring.port.in.HeroFindService;
+import fr.herozofzespring.port.out.HeroSaveService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,32 +16,63 @@ import java.util.Map;
 public class HeroController {
 
 
-    private final HeroService heroService;
+    private final HeroSaveService heroSaveService;
+    private final HeroFindService heroFindService;
 
-    public HeroController(HeroService heroService) {
-        this.heroService = heroService;
+    public HeroController(HeroSaveService heroSaveService, HeroFindService heroFindService) {
+        this.heroSaveService = heroSaveService;
+        this.heroFindService = heroFindService;
     }
 
+
     @GetMapping
-    public ResponseEntity<List<Hero>> findAll(){
-        return new ResponseEntity<>(heroService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<HeroEntity>> findAll(){
+        return new ResponseEntity<>(heroFindService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Hero> save(@RequestBody Map<String, Object> body){
+    public ResponseEntity<?> save(@RequestBody Map<String, Object> body){
 
-        System.out.println(body);
+
+        Map<String, String> errorBody = new HashMap<>();
 
         String name = (String) body.get("name");
-        System.out.println(name);
-        Integer hp = (Integer) body.get("hp");
-        Integer xp = (Integer) body.get("xp");
-        Integer power = (Integer) body.get("power");
-        Integer armor = (Integer) body.get("armor");
-        Integer level = (Integer) body.get("level");
+        if (name == null)
+            errorBody.put("errorName", "name is null !");
 
-        System.out.println("test");
+        String speciality = (String) body.get("speciality");
+        if (speciality == null)
+            errorBody.put("errorSpeciality", "speciality is null !");
+        else{
+            switch (speciality.toUpperCase()) {
+                case "TANK" -> speciality = "TANK";
+                case "ASSASSIN" -> speciality = "ASSASSIN";
+                case "MAGE" -> speciality = "MAGE";
+                default -> errorBody.put("errorSpeciality", "the chosen speciality is unknown");
+            }
+        }
 
-        return new ResponseEntity<>(heroService.save(name, hp, xp, power, armor, level), HttpStatus.CREATED);
+        String rarity = (String) body.get("rarity");
+        if (rarity == null)
+            errorBody.put("errorRarity", "rarity is null !");
+        else{
+            switch (rarity.toUpperCase()) {
+                case "COMMON" -> rarity = "COMMON";
+                case "RARE" -> rarity = "RARE";
+                case "LEGENDARY" -> rarity = "LEGENDARY";
+                default -> errorBody.put("errorRarity", "the chosen rarity is unknown");
+            }
+        }
+
+        if (!errorBody.isEmpty())
+            return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
+
+        HeroEntity heroSaved = heroSaveService.save(name, speciality, rarity);
+        if (heroSaved == null) {
+            errorBody.put("internalError", "Internal error happend at creation");
+            return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(heroSaved, HttpStatus.CREATED);
     }
 }
