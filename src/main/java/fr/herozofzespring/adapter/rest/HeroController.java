@@ -24,7 +24,6 @@ public class HeroController {
         this.heroFindService = heroFindService;
     }
 
-
     @GetMapping
     public ResponseEntity<List<HeroEntity>> findAll(){
         return new ResponseEntity<>(heroFindService.findAll(), HttpStatus.OK);
