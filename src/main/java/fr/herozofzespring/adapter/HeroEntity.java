@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Entity
@@ -20,13 +22,6 @@ public class HeroEntity {
     private String name;
     private String speciality;
     private String rarity;
-
-    public HeroEntity(Integer heroId, String name, Speciality speciality, Rarity rarity) {
-        this.heroId = heroId;
-        this.name = name;
-        this.speciality = speciality.name();
-        this.rarity = rarity.name();
-    }
 
     public HeroEntity(Hero hero) {
         this.name = hero.getName();
