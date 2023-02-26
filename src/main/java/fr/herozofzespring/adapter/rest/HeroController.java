@@ -32,7 +32,6 @@ public class HeroController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Map<String, Object> body){
 
-
         Map<String, String> errorBody = new HashMap<>();
 
         String name = (String) body.get("name");
@@ -66,12 +65,13 @@ public class HeroController {
         if (!errorBody.isEmpty())
             return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
 
-        HeroEntity heroSaved = heroSaveService.save(name, speciality, rarity);
-        if (heroSaved == null) {
-            errorBody.put("internalError", "Internal error happend at creation");
+        try{
+            HeroEntity heroSaved = heroSaveService.save(name, speciality, rarity);
+            return new ResponseEntity<>(heroSaved, HttpStatus.CREATED);
+        }catch (IllegalArgumentException e){
+            errorBody.put("internalError", e.getMessage());
             return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(heroSaved, HttpStatus.CREATED);
     }
 }

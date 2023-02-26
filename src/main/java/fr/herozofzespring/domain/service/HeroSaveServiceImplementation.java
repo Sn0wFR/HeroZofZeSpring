@@ -4,6 +4,8 @@ import fr.herozofzespring.adapter.HeroEntity;
 import fr.herozofzespring.domain.enumerator.Rarity;
 import fr.herozofzespring.domain.enumerator.Speciality;
 import fr.herozofzespring.domain.model.Hero;
+import fr.herozofzespring.port.in.HeroFindRepository;
+import fr.herozofzespring.port.in.HeroFindService;
 import fr.herozofzespring.port.out.HeroSaveRepository;
 import fr.herozofzespring.port.out.HeroSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class HeroSaveServiceImplementation implements HeroSaveService {
 
     @Autowired
     private HeroSaveRepository heroSaveRepository;
+
+    @Autowired
+    private HeroFindRepository heroFindRepository;
 
     @Override
     public HeroEntity save(String name, String speciality, String rarity) {
@@ -34,7 +39,12 @@ public class HeroSaveServiceImplementation implements HeroSaveService {
         }
 
         if (name == null || affectedSpeciality == null || affectedRarity == null)
-            return null;
+            throw new IllegalArgumentException("Hero not valid");
+
+        this.heroFindRepository.findAll().forEach(heroEntity -> {
+            if (heroEntity.getName().equals(name) && heroEntity.getSpeciality().equals(name) && heroEntity.getRarity().equals(name))
+                throw new IllegalArgumentException("Hero already exists");
+        });
 
         HeroEntity heroEntity = new HeroEntity(
                 new Hero(
@@ -47,4 +57,5 @@ public class HeroSaveServiceImplementation implements HeroSaveService {
         return heroSaveRepository.save(heroEntity);
 
     }
+
 }
