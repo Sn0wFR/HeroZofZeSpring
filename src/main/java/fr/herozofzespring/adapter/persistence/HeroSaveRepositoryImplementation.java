@@ -1,4 +1,4 @@
-package fr.herozofzespring.adapter.persistence.out;
+package fr.herozofzespring.adapter.persistence;
 
 import fr.herozofzespring.adapter.HeroEntity;
 import fr.herozofzespring.domain.model.Hero;
@@ -18,7 +18,6 @@ public class HeroSaveRepositoryImplementation implements HeroSaveRepository {
     @Override
     @Transactional
     public HeroEntity save(HeroEntity heroEntity) {
-
         entityManager.persist(heroEntity);
         return heroEntity;
     }

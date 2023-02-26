@@ -1,8 +1,10 @@
 package fr.herozofzespring.adapter.rest;
 
 import fr.herozofzespring.adapter.HeroEntity;
+import fr.herozofzespring.port.in.HeroDeleteService;
 import fr.herozofzespring.port.in.HeroFindService;
-import fr.herozofzespring.port.out.HeroSaveService;
+import fr.herozofzespring.port.in.HeroSaveService;
+import fr.herozofzespring.port.in.HeroUpdateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +20,27 @@ public class HeroController {
 
     private final HeroSaveService heroSaveService;
     private final HeroFindService heroFindService;
+    private final HeroDeleteService heroDeleteService;
+    private final HeroUpdateService heroUpdateService;
 
-    public HeroController(HeroSaveService heroSaveService, HeroFindService heroFindService) {
+    public HeroController(HeroSaveService heroSaveService, HeroFindService heroFindService, HeroDeleteService heroDeleteService, HeroUpdateService heroUpdateService) {
         this.heroSaveService = heroSaveService;
         this.heroFindService = heroFindService;
+        this.heroDeleteService = heroDeleteService;
+        this.heroUpdateService = heroUpdateService;
     }
 
     @GetMapping
     public ResponseEntity<List<HeroEntity>> findAll(){
         return new ResponseEntity<>(heroFindService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HeroEntity> findById(@PathVariable Integer id){
+        HeroEntity heroEntity = heroFindService.findById(id);
+        if (heroEntity == null)
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(heroEntity, HttpStatus.OK);
     }
 
     @PostMapping
@@ -66,12 +80,50 @@ public class HeroController {
             return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
 
         try{
-            HeroEntity heroSaved = heroSaveService.save(name, speciality, rarity);
-            return new ResponseEntity<>(heroSaved, HttpStatus.CREATED);
+            return new ResponseEntity<>(heroSaveService.save(name, speciality, rarity), HttpStatus.CREATED);
         }catch (IllegalArgumentException e){
             errorBody.put("internalError", e.getMessage());
             return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
         }
 
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Integer id){
+        try{
+            return new ResponseEntity<>(heroDeleteService.deleteById(id), HttpStatus.OK);
+        }catch (IllegalArgumentException e){
+            Map<String, String> errorBody = new HashMap<>();
+            errorBody.put("internalError", e.getMessage());
+            return new ResponseEntity<>(errorBody, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateById(@PathVariable Integer id, @RequestBody Map<String, Object> body) {
+
+        Map<String, String> errorBody = new HashMap<>();
+
+        String name = (String) body.get("name");
+        String speciality = (String) body.get("speciality");
+        String rarity = (String) body.get("rarity");
+
+        if (name == null && speciality == null && rarity == null){
+            errorBody.put("error", "no data to update, invalid Request");
+            return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
+        }
+
+        try{
+            heroUpdateService.updateById(id, name, speciality, rarity);
+        }catch (IllegalArgumentException e){
+            errorBody.put("internalError", e.getMessage());
+            return new ResponseEntity<>(errorBody, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+
+
 }

@@ -9,13 +9,12 @@ import jakarta.persistence.Id;
 import lombok.*;
 
 @Getter
-@Setter
 public class Hero {
-    private String name;
+    private final String name;
 
-    private Speciality speciality;
+    private final Speciality speciality;
 
-    private Rarity rarity;
+    private final Rarity rarity;
 
     public Hero(String name, Speciality speciality, Rarity rarity) {
         this.name = name;
@@ -23,7 +22,4 @@ public class Hero {
         this.rarity = rarity;
     }
 
-    public Hero() {
-
-    }
 }

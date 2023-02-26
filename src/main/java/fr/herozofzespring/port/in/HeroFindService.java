@@ -9,4 +9,6 @@ public interface HeroFindService {
 
     List<HeroEntity> findAll();
 
+    HeroEntity findById(Integer heroId);
+
 }

@@ -5,8 +5,8 @@ import fr.herozofzespring.domain.model.Hero;
 
 import java.util.List;
 
-public interface HeroSaveService {
+public interface HeroFindRepository {
+    List<HeroEntity> findAll();
 
-    HeroEntity save(String name, String speciality, String rarity);
-
+    HeroEntity findById(Integer heroId);
 }

@@ -23,10 +23,17 @@ public class HeroEntity {
     private String speciality;
     private String rarity;
 
-    public HeroEntity(Hero hero) {
-        this.name = hero.getName();
-        this.speciality = hero.getSpeciality().name();
-        this.rarity = hero.getRarity().name();
+    public HeroEntity(String name, String speciality, String rarity) {
+        this.name = name;
+        this.speciality = speciality;
+        this.rarity = rarity;
+    }
+
+    public HeroEntity(Integer heroId, String name, String speciality, String rarity) {
+        this.heroId = heroId;
+        this.name = name;
+        this.speciality = speciality;
+        this.rarity = rarity;
     }
 
     public HeroEntity() {
