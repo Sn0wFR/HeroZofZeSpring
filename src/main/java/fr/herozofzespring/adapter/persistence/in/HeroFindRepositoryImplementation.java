@@ -1,7 +1,6 @@
 package fr.herozofzespring.adapter.persistence.in;
 
-import fr.herozofzespring.adapter.HeroEntity;
-import fr.herozofzespring.domain.model.Hero;
+import fr.herozofzespring.adapter.Entity.HeroEntity;
 import fr.herozofzespring.port.in.HeroFindRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

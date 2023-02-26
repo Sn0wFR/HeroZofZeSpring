@@ -1,13 +1,8 @@
 package fr.herozofzespring.domain.service;
 
-import fr.herozofzespring.adapter.HeroEntity;
-import fr.herozofzespring.domain.enumerator.Rarity;
-import fr.herozofzespring.domain.enumerator.Speciality;
-import fr.herozofzespring.domain.model.Hero;
+import fr.herozofzespring.adapter.Entity.HeroEntity;
 import fr.herozofzespring.port.in.HeroFindRepository;
 import fr.herozofzespring.port.in.HeroFindService;
-import fr.herozofzespring.port.out.HeroSaveRepository;
-import fr.herozofzespring.port.out.HeroSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
