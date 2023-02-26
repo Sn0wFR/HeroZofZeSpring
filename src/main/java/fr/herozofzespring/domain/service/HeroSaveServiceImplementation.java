@@ -1,6 +1,6 @@
 package fr.herozofzespring.domain.service;
 
-import fr.herozofzespring.adapter.HeroEntity;
+import fr.herozofzespring.adapter.Entity.HeroEntity;
 import fr.herozofzespring.domain.enumerator.Rarity;
 import fr.herozofzespring.domain.enumerator.Speciality;
 import fr.herozofzespring.domain.model.Hero;

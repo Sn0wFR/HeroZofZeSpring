@@ -1,4 +1,4 @@
-package fr.herozofzespring.adapter;
+package fr.herozofzespring.adapter.Entity;
 
 import fr.herozofzespring.domain.enumerator.Rarity;
 import fr.herozofzespring.domain.enumerator.Speciality;

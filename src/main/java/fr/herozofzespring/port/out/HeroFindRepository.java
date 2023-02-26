@@ -1,7 +1,6 @@
 package fr.herozofzespring.port.out;
 
-import fr.herozofzespring.adapter.HeroEntity;
-import fr.herozofzespring.domain.model.Hero;
+import fr.herozofzespring.adapter.Entity.HeroEntity;
 
 import java.util.List;
 

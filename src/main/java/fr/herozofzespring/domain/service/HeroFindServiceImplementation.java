@@ -1,6 +1,6 @@
 package fr.herozofzespring.domain.service;
 
-import fr.herozofzespring.adapter.HeroEntity;
+import fr.herozofzespring.adapter.Entity.HeroEntity;
 import fr.herozofzespring.port.out.HeroFindRepository;
 import fr.herozofzespring.port.in.HeroFindService;
 import org.springframework.beans.factory.annotation.Autowired;
