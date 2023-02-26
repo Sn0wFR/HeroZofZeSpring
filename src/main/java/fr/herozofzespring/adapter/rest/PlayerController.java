@@ -1,3 +1,4 @@
+/*
 package fr.herozofzespring.adapter.rest;
 
 import fr.herozofzespring.adapter.entity.HeroEntity;
@@ -41,3 +42,4 @@ public class PlayerController {
 
     }
 }
+*/

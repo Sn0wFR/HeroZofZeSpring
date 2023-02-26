@@ -32,15 +32,15 @@ public class HeroController {
 
     @GetMapping
     public ResponseEntity<List<HeroEntity>> findAll(){
-        return new ResponseEntity<>(heroFindService.findAll(), HttpStatus.OK);
+        return ResponseEntity.ok(heroFindService.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<HeroEntity> findById(@PathVariable Integer id){
         HeroEntity heroEntity = heroFindService.findById(id);
         if (heroEntity == null)
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(heroEntity, HttpStatus.OK);
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(heroEntity);
     }
 
     @PostMapping
@@ -77,13 +77,13 @@ public class HeroController {
         }
 
         if (!errorBody.isEmpty())
-            return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(errorBody);
 
         try{
-            return new ResponseEntity<>(heroSaveService.save(name, speciality, rarity), HttpStatus.CREATED);
+            return ResponseEntity.ok(heroSaveService.save(name, speciality, rarity));
         }catch (IllegalArgumentException e){
             errorBody.put("internalError", e.getMessage());
-            return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(errorBody);
         }
 
     }
@@ -91,11 +91,9 @@ public class HeroController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Integer id){
         try{
-            return new ResponseEntity<>(heroDeleteService.deleteById(id), HttpStatus.OK);
+            return ResponseEntity.ok(heroDeleteService.deleteById(id));
         }catch (IllegalArgumentException e){
-            Map<String, String> errorBody = new HashMap<>();
-            errorBody.put("internalError", e.getMessage());
-            return new ResponseEntity<>(errorBody, HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -110,17 +108,17 @@ public class HeroController {
 
         if (name == null && speciality == null && rarity == null){
             errorBody.put("error", "no data to update, invalid Request");
-            return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(errorBody);
         }
 
         try{
             heroUpdateService.updateById(id, name, speciality, rarity);
         }catch (IllegalArgumentException e){
             errorBody.put("internalError", e.getMessage());
-            return new ResponseEntity<>(errorBody, HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
 
     }
 }

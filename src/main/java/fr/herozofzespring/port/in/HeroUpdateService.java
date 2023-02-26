@@ -1,6 +1,6 @@
 package fr.herozofzespring.port.in;
 
-import fr.herozofzespring.adapter.HeroEntity;
+import fr.herozofzespring.adapter.entity.HeroEntity;
 
 public interface HeroUpdateService {
 
